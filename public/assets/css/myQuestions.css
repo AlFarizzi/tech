@@ -1,0 +1,16 @@
+
+
+.question-status {
+    padding:2px 5px;
+    border-radius:10px;
+}
+
+.question-solved {
+    background-color: rgb(58, 231, 58);
+    color:white;
+}
+
+.question-unsolved {
+    background-color: rgb(231, 58, 58);
+    color:white;
+}
