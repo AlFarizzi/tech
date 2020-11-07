@@ -19,6 +19,7 @@
                 </p>
             </div>
             <a href="{{route('singlePublic.get',$question)}}" class="timeline-read">Lihat</a>
+            <a href="{{route('markAsSolved',$question)}}" class="timeline-read">Mark As Solved</a>
         </div>
     @endforeach
 </div>

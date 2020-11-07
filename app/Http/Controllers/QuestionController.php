@@ -62,4 +62,11 @@ class QuestionController extends Controller
         return view('Layout.User.question',compact('question','comment'));
     }
 
+    public function markAsSolved(Question $question) {
+        $question->update([
+            "category_id" => 1
+        ]);
+        return back();
+    }
+
 }

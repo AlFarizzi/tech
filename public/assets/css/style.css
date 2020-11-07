@@ -283,9 +283,10 @@ button:focus {
 }
 
 .timeline-read {
-    display: block;
+    /* display: block; */
     padding:5px 6px;
-    /* text-decoration: none; */
+    width: 125px;
+    text-decoration: none;
     color:#2C4964;
 }
 

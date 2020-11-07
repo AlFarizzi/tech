@@ -37,11 +37,15 @@ Route::group(['middleware' => 'auth', 'prefix' => 'user'],function() {
         Route::get('myQuestions/unsolved', [QuestionController::class, 'myUnsolved'])->name('myUnsolved.get');
         Route::post('/public/search', [QuestionController::class, 'searchQuestion'])->name('searchQuestion');
         Route::get('question/{question:slug}', [QuestionController::class, 'singlePublicQuestion'])->name('singlePublic.get');
+        // Mark As Solved
+            Route::get('mark-as-solved/{question:slug}', [QuestionController::class, 'markAsSolved'])->name('markAsSolved');
+        // Mark As Solved
     // Question
 
     // Comment
         Route::post('comment/{question:slug}', [CommentController::class, 'postComment'])->name('comment.post');
     // Comment
+
 
     Route::get('/logout', function() {
         Auth::logout();
