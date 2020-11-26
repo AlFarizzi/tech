@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class HomeRepository extends Controller
 {
     public function getAllQuestions() {
-        return Question::with('user')->latest()->get();
+        return Question::with('user','savedPost')->latest()->get();
     }
 
     public function getSearch($keyword) {
@@ -28,7 +28,12 @@ class HomeRepository extends Controller
     }
 
     public function postSaved($data) {
-        savedPost::create($data);
+        $check = savedPost::where('user_id',$data['user_id'])->where('question_id',$data['question_id'])->get();
+        if($check->count() > 0) {
+            session()->flash('error', 'postingan ini sudah pernah disimpan');
+        } else {
+            savedPost::create($data);
+        }
     }
 
     public function createPost($input) {
