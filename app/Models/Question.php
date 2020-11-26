@@ -22,4 +22,9 @@ class Question extends Model
         return $this->hasMany(Comment::class, 'question_id');
     }
 
+    public function savedPost() {
+        return $this->hasOne(savedPost::class, 'question_id');
+    }
+
+
 }

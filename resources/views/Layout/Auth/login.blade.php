@@ -1,24 +1,31 @@
 @extends('index')
 
 @section('content')
-<i class="fas fa-hamburger show-icon" id="show-icon"></i>
-        <div class="auth-box">
-        <img src="/assets/img/logo.png" alt="">
-        <form action="{{route('login')}}" method="post">
-            @csrf
-            <div class="form-group">
-                <input type="email" name="email" class="form-auth @error('email') error-border @enderror">
-                @error('email')
-                <p class="error-message">{{$message}}</p>
-                @enderror
+    @push('style')
+        <link rel="stylesheet" href="/assets/css/auth.css">
+    @endpush
+    <div class="row">
+        <div class="col center-panel">
+            <div class="card">
+                <img src="/assets/img/logo.png" alt="logo tech" class="login-logo">
+                <div class="login-panel">
+                    <form action="{{route('login')}}" method="post">
+                        @csrf
+                        <div class="form-group">
+                            <label for="" class="form-label">Username</label>
+                            <input type="text" name="username"  class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">Password</label>
+                            <input type="password" name="password"  class="form-control">
+                        </div>
+                        <button type="submit" class="btn-login">Continue</button>
+                    </form>
+                </div>
+                <div class="forgot-panel">
+                    <a href="" class="forgot">i forgot my password &#x1F641;</a>
+                </div>
             </div>
-            <div class="form-group">
-                <input type="password" name="password" class="form-auth @error('password') error-border @enderror">
-                @error('password')
-                    <p class="error-message">{{$message}}</p>
-                @enderror
-
-            <button type="submit" class="btn-auth btn-primary btn-auth">Login</button>
-        </form>
+        </div>
     </div>
 @endsection

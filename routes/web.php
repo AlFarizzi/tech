@@ -1,54 +1,53 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\QuestionController;
-use App\Http\Controllers\UserController;
-use App\Models\Question;
-use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Home\HomeAuthController;
+use App\Http\Controllers\Home\HomeController;
+use App\Models\Question;
 
-Route::get('/', function () {
-    return view('Layout.homePage');
-})->middleware('guest')->name('root');
+Route::get('/search', [HomeController::class, 'search'])->name('guest.search');
+Route::get( '/{author}/{slug}' , [HomeController::class, 'read'])->name('read');
 
-Route::group(['middleware' => 'guest'], function() {
-    // Auth
-    Route::get('/register', [RegisterController::class, 'getRegister'])->name('register');
-    Route::get('/login', [LoginController::class, 'getLogin'])->name('login');
-    Route::post('/register', [RegisterController::class, 'postRegister']);
-    Route::post('/login', [LoginController::class, 'postLogin']);
-    // Auth
+Route::group(['middleware' => ['guest']], function() {
+    Route::get('/', [HomeController::class, 'index'])->name('guest.index');
+    // Auth Route
+        Route::view('/login', 'Layout.Auth.login')->name('login');
+        Route::post('/login', [AuthController::class, 'login']);
+        Route::view('/register', 'Layout.Auth.register')->name('register');
+        Route::post('/register', [AuthController::class, 'register']);
+    // Auth Route
 });
 
-Route::group(['middleware' => 'auth', 'prefix' => 'user'],function() {
-    // User
-        Route::get('', [UserController::class, 'index'])->name('home');
-    // User
+Route::group(['middleware' => ['auth']], function() {
 
-    // Question
-        Route::get('myQuestions', [QuestionController::class ,'getMyQuestion'])->name('myQuestion.get');
-        Route::post('myQuestions', [QuestionController::class, 'postMyQuestion'])->name('myQuestion.post');
-        Route::get('public/questions/solved', [QuestionController::class, 'publicSolved'])->name('publicSolved.get'); //route for solved public question
-        Route::get('myQuestions/solved', [QuestionController::class, 'mySolved'])->name('mySolved.get'); //route for my solved question
-        Route::get('public/questions/unsolved', [QuestionController::class, 'publicUnsolved'])->name('publicUnsolved.get');
-        Route::get('myQuestions/unsolved', [QuestionController::class, 'myUnsolved'])->name('myUnsolved.get');
-        Route::post('/public/search', [QuestionController::class, 'searchQuestion'])->name('searchQuestion');
-        Route::get('question/{question:slug}', [QuestionController::class, 'singlePublicQuestion'])->name('singlePublic.get');
-        // Mark As Solved
-            Route::get('mark-as-solved/{question:slug}', [QuestionController::class, 'markAsSolved'])->name('markAsSolved');
-        // Mark As Solved
-    // Question
+    Route::group(['prefix' => 'dashboard'],function() {
+        Route::get('', [HomeAuthController::class, 'index'])->name('auth.index');
+        Route::post('', [HomeAuthController::class, 'save'])->name('save');
+    });
 
-    // Comment
-        Route::post('comment/{question:slug}', [CommentController::class, 'postComment'])->name('comment.post');
-    // Comment
+    Route::group(['prefix' => 'saved-posts'],function() {
+        Route::get('', [HomeAuthController::class, 'savedPosts'])->name('savedPosts');
+        Route::get('remove-saved-post/{id}', [HomeAuthController::class, 'removeSavedPost'])->name('remove-saved-post');
+    });
 
+    Route::group(['prefix' => 'create-post'],function() {
+        Route::get('', [HomeAuthController::class, 'getCreatePost'])->name('newPost');
+        Route::post('', [HomeAuthController::class, 'postCreatePost']);
+    });
+
+    Route::group(['prefix' => 'my-posts'],function() {
+        Route::get('',[HomeAuthController::class, 'myPosts'])->name('myPosts');
+        Route::get('/delete-my-post/{id:slug}', [HomeAuthController::class, 'deleteMyPosts'])->name('deleteMyPost');
+        Route::get('/update-post/{id:slug}', [HomeAuthController::class, 'editPost'])->name('editMyPost');
+        Route::put('/update-post/{id:slug}', [HomeAuthController::class, 'updatePost']);
+    });
+
+    Route::post('/comment', [HomeAuthController::class, 'postComment'])->name('postComment');
 
     Route::get('/logout', function() {
         Auth::logout();
-        return redirect()->route('root');
+        return redirect()->route('guest.index');
     })->name('logout');
 });
