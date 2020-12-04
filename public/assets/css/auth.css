@@ -1,0 +1,61 @@
+.login-panel > form {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-logo {
+    display: block;
+    margin: auto;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 75%;
+}
+
+.form-label {
+    margin-bottom: 10px;
+}
+
+.form-control {
+    border: 2px solid lightgray;
+    border-radius: 5px;
+    height: 20px;
+    padding :8px;
+}
+
+.form-control:focus {
+    outline: none;
+    border-top: 1px solid #3B49DF;
+    border-left: 1px solid #3B49DF;
+    border-right: 2px solid #3B49DF;
+    border-bottom: 2px solid #3B49DF;
+}
+
+.btn-login {
+    width: 75%;
+    height: 35px;
+    border:0;
+    background-color: #3B49DF;
+    color:white;
+    border-radius: 5px;
+}
+
+.forgot-panel {
+    display: flex;
+    justify-content: center;
+}
+
+.forgot {
+    text-decoration: none;
+    color:#3B49DF;
+}
+
+.register-panel > form {
+    display: flex;
+    flex-direction: column;
+}
