@@ -51,7 +51,7 @@ return [
             'database' => env('DB_DATABASE', 'techdiscuss'),
             'username' => env('DB_USERNAME', 'techdiscuss'),
             'password' => env('DB_PASSWORD', 'techdiscuss'),
-            'unix_socket' => env('DB_SOCKET', 'techdiscuss'),
+            'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
