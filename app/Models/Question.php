@@ -23,7 +23,7 @@ class Question extends Model
     }
 
     public function savedPost() {
-        return $this->hasOne(savedPost::class, 'question_id');
+        return $this->hasMany(savedPost::class, 'question_id');
     }
 
     public function hashtags() {

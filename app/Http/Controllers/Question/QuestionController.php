@@ -51,6 +51,7 @@ class QuestionController extends Controller
         for ($i=0; $i < count($id->comments); $i++) {
             $id->comments[0]->delete();
         }
+        $id->savedPost ?  $id->savedPost->delete() : '';
         $id->delete();
         return back();
     }
