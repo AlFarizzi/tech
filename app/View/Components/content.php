@@ -13,7 +13,7 @@ class content extends Component
      *
      * @return void
      */
-    public function __construct($data,$hastags)
+    public function __construct($data,$hastags = [])
     {
         $this->data = $data;
         $this->hashtags = $hastags;

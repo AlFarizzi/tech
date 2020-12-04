@@ -24,9 +24,11 @@
     <div class="col right-sidebar">
             <div class="card">
                 <h1 class="hashtag-header">#Hashtags</h1>
-                @foreach ($hashtags as $hashtag)
-                    <p class="hashtag-item"><a href="{{route('dependPost',$hashtag)}}" class="hashtag-link">{{"#".$hashtag->hashtag}}</a></p>
-                @endforeach
+                @isset($hashtags)
+                    @foreach ($hashtags as $hashtag)
+                        <p class="hashtag-item"><a href="{{route('dependPost',$hashtag)}}" class="hashtag-link">{{"#".$hashtag->hashtag}}</a></p>
+                    @endforeach
+                @endisset
             </div>
     </div>
 </div>

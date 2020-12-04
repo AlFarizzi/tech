@@ -21,7 +21,7 @@ class HomeController extends Controller
     public function search(Request $request) {
         $repo = new QuestionRepository();
         $data = $repo->getSearch($request->q);
-        return view('Layout.home_page',compact('data'));
+        return view('Layout.home-page',compact('data'));
     }
 
     public function read($author, $slug) {
