@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class AuthRepository extends Controller
 {
     public function postRegister($request) {
+        $request['password'] = bcrypt($request['password']);
         $user = User::create($request);
     }
 
