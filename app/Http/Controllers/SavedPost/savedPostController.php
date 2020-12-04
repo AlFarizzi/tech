@@ -21,6 +21,7 @@ class savedPostController extends Controller
             // dd(Auth()->user()->savedPosts[0]->question);
             $data = Auth::user()->savedPosts;
             // dd($data);
+            // dd($data);
             return view('Layout.User.dashboard',compact('data'));
         }
 

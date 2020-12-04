@@ -4,5 +4,5 @@
     @if (session('error'))
         <p>{{session('error')}}</p>
     @endif
-    <x-content :data="$data" :hashtags="$hashtags" />
+    <x-content :data="$data" />
 @endsection
